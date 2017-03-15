@@ -1,30 +1,111 @@
-! Primo modello di studio. Masse concentrate
-! Si è meshata ogni sezione e poi, una volta assegnata al beam element,  si è fatto uno studio a masse concentrate
-! Importare il dile sec nella stessa directory della cartella di lavoro
 
+FINISH
+/CLEAR, START, NEW
+/FILNAM, BEAM_VIBRATION
+/TITLE, BEAM_VIBRATION
+/CWD, 'C:\Users\Utente\Google Drive\Uni\Benedetti 2\progetto\beam_vibration'
 
-finish
-/clear
-/title, Version_1
-/cwd, 'D:\Davide\Magistrale\Benedetti2\Progetto\Versione1'
+/PREP7
+C*** VIBRATION THEORY AND APPLICATIONS, THOMSON, 2ND PRINTING, PAGE 18, EX 1.5-1
+ET,1,BEAM189         ! THREE DIMENSIONAL ELASTIC BEAM
+MP,EX,1,30E6         ! DEFINE MATERIAL PROPERTIES
+MP,DENS,1,728E-6
+MP,GXY,1,30E6/2.6
 
+E_length = 10
 
-!Importare file iges
+sectype,1,beam,csolid,small_sec,3
+secdata, 22,120,5
+!secplot,1,1 !to plot the section meshed
 
-/prep7
+sectype,2,beam,csolid,medium_sec,3
+secdata,24.5,120,5
 
-!cross section 1
-sectype,1,beam,csolid,,3
-secdata, 21,120,5             !Diametro sezione 1
-secplot,1,1
+sectype,3,beam,csolid,medium_sec,3
+secdata,28,120,5
 
+sectype,4,beam,csolid,big_sec,3
+secdata,32,120,5
 
-!cross section 1
-sectype,2,beam,csolid,,3
-secdata,24.5,120,5               !Diametro sezione 2
-secplot,2,1
+sectype,5,beam,csolid,big_sec,3
+secdata,36,120,5
 
-sectype,3,beam,mesh, Cam
+sectype,6,beam,csolid,big_sec,3
+secdata,38,120,5
+
+!gola
+!sectype,7,beam,csolid,big_sec,3
+!secdata,42,120,5
+
+sectype,7,beam,csolid,big_sec,3
+secdata,44,120,5
+
+sectype,8,beam,csolid,big_sec,3
+secdata,47,120,5
+
+sectype, 9, beam, mesh, cam
 secread,cam_section,sect,,mesh
 
+K, 1, 0
+K, 2, 24
+K, 3, 27
+K, 4, 38
+K, 5, 46
+K, 6, 59
+K, 7, 80
+K, 8, 93
+K, 9, 110.3
+K, 10, 123.3
+K, 11, 144.3
+K, 12, 157.3
+K, 13, 164.3
+K, 14, 180.3
+K, 15, 187.3
+K, 16, 200.3
+K, 17, 221.3
+K, 18, 234.3
+K, 19, 251.6
+K, 20, 264.6
+K, 21, 285.6
+K, 22, 298.6
+K, 23, 305.6
+K, 24, 319.6
 
+*do,i,1,23,1
+  L,i,i+1
+*enddo
+
+LESIZE, all,E_length
+
+!
+LSEL, s, line,,6
+LSEL, a, line,,10
+LSEL, a, line,,16
+LSEL, a, line,,20
+LATT,1,,all,,,,1
+
+!28
+LSEL, s, line,,8
+LSEL, a, line,,12
+LSEL, a, line,,14
+LSEL, a, line,,18
+LSEL, a, line,,22
+LATT,1,,all,,,,2
+
+!
+LATT,1,,4,,,,3
+
+!
+LATT,1,,23,,,,4
+
+!
+LATT,1,,2,,,,5
+
+!
+LATT,1,,1,,,,6
+
+!
+LATT,1,,13,,,,7
+
+!
+LATT,1,,3,,,,8
