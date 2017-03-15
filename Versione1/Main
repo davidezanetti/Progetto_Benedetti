@@ -1,0 +1,30 @@
+! Primo modello di studio. Masse concentrate
+! Si è meshata ogni sezione e poi, una volta assegnata al beam element,  si è fatto uno studio a masse concentrate
+! Importare il dile sec nella stessa directory della cartella di lavoro
+
+
+finish
+/clear
+/title, Version_1
+/cwd, 'D:\Davide\Magistrale\Benedetti2\Progetto\Versione1'
+
+
+!Importare file iges
+
+/prep7
+
+!cross section 1
+sectype,1,beam,csolid,,3
+secdata, 21,120,5             !Diametro sezione 1
+secplot,1,1
+
+
+!cross section 1
+sectype,2,beam,csolid,,3
+secdata,24.5,120,5               !Diametro sezione 2
+secplot,2,1
+
+sectype,3,beam,mesh, Cam
+secread,cam_section,sect,,mesh
+
+
