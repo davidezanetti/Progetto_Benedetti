@@ -11,37 +11,36 @@ ET,1,BEAM189         ! THREE DIMENSIONAL ELASTIC BEAM
 MP,EX,1,30E6         ! DEFINE MATERIAL PROPERTIES
 MP,DENS,1,728E-6
 MP,GXY,1,30E6/2.6
-
-E_length = 10
+E_length = 5
 
 sectype,1,beam,csolid,small_sec,3
-secdata, 22,120,5
+secdata, 22/2,120,5
 !secplot,1,1 !to plot the section meshed
 
 sectype,2,beam,csolid,medium_sec,3
-secdata,24.5,120,5
+secdata,24.5/2,120,5
 
 sectype,3,beam,csolid,medium_sec,3
-secdata,28,120,5
+secdata,28/2,120,5
 
 sectype,4,beam,csolid,big_sec,3
-secdata,32,120,5
+secdata,32/2,120,5
 
 sectype,5,beam,csolid,big_sec,3
-secdata,36,120,5
+secdata,36/2,120,5
 
 sectype,6,beam,csolid,big_sec,3
-secdata,38,120,5
+secdata,38/2,120,5
 
 !gola
 !sectype,7,beam,csolid,big_sec,3
 !secdata,42,120,5
 
 sectype,7,beam,csolid,big_sec,3
-secdata,44,120,5
+secdata,44/2,120,5
 
 sectype,8,beam,csolid,big_sec,3
-secdata,47,120,5
+secdata,47/2,120,5
 
 sectype, 9, beam, mesh, cam
 secread,cam_section,sect,,mesh
@@ -75,37 +74,126 @@ K, 24, 319.6
   L,i,i+1
 *enddo
 
+
+!orientation keypoints in order to rotate the cams
+
+LSEL, s, line,,6,10,4
+LSEL, a, line,,16,20,4
 LESIZE, all,E_length
-
-!
-LSEL, s, line,,6
-LSEL, a, line,,10
-LSEL, a, line,,16
-LSEL, a, line,,20
 LATT,1,,all,,,,1
+LMESH,all
 
-!28
-LSEL, s, line,,8
-LSEL, a, line,,12
-LSEL, a, line,,14
-LSEL, a, line,,18
-LSEL, a, line,,22
+
+LSEL, s, line,,8,12,4
+LSEL, a, line,,14,22,4
+LESIZE, all,E_length
 LATT,1,,all,,,,2
+LMESH,all
 
-!
-LATT,1,,4,,,,3
 
-!
-LATT,1,,23,,,,4
+LSEL,s,line,,4
+LESIZE, all,E_length
+LATT,1,,all,,,,3
+LMESH,all
 
-!
-LATT,1,,2,,,,5
+LSEL,s,line,,23
+LESIZE, all,E_length
+LATT,1,,all,,,,4
+LMESH,all
 
-!
-LATT,1,,1,,,,6
+LSEL,s,line,,2
+LESIZE, all,E_length
+LATT,1,,all,,,,5
+LMESH,all
 
-!
-LATT,1,,13,,,,7
+LSEL,s,line,,1
+LESIZE, all,E_length
+LATT,1,,all,,,,6
+LMESH,all
 
-!
-LATT,1,,3,,,,8
+LSEL,s,line,,13
+LESIZE, all,E_length
+LATT,1,,all,,,,7
+LMESH,all
+
+LSEL,s,line,,3
+LESIZE, all,E_length
+LATT,1,,all,,,,8
+LMESH,all
+
+!cam at lines: 5,7,9,11,15,17,19,21
+K,50,319.6,0,-1
+LSEL,s,line,,21
+LESIZE, all,E_length
+Latt,1,,all,,50,,9
+LMESH,all
+
+CLOCAL,11,0,,,,,100
+CSYS,11
+K,51,319.6,0,-1
+LSEL,s,line,,19
+LESIZE, all,E_length
+Latt,1,,all,,51,,9
+LMESH,all
+
+CSYS,0
+CLOCAL,12,0,,,,,15
+CSYS,12
+K,52,319.6,0,-1
+LSEL,s,line,,17
+LESIZE, all,E_length
+Latt,1,,all,,52,,9
+LMESH,all
+
+CSYS,0
+CLOCAL,13,0,,,,,-90
+CSYS,13
+K,53,319.6,0,-1
+LSEL,s,line,,15
+LESIZE, all,E_length
+Latt,1,,all,,53,,9
+LMESH,all
+
+
+CSYS,0
+CLOCAL,14,0,,,,,75
+CSYS,14
+K,54,319.6,0,-1
+LSEL,s,line,,11
+LESIZE, all,E_length
+Latt,1,,all,,54,,9
+LMESH,all
+
+CSYS,0
+CLOCAL,15,0,,,,,-170
+CSYS,15
+K,55,319.6,0,-1
+LSEL,s,line,,9
+LESIZE, all,E_length
+Latt,1,,all,,55,,9
+LMESH,all
+
+CSYS,0
+CLOCAL,16,0,,,,,-60
+CSYS,16
+K,56,319.6,0,-1
+LSEL,s,line,,7
+LESIZE, all,E_length
+Latt,1,,all,,56,,9
+LMESH,all
+
+CSYS,0
+CLOCAL,17,0,,,,,180
+CSYS,17
+K,57,319.6,0,-1
+LSEL,s,line,,5
+LESIZE, all,E_length
+Latt,1,,all,,57,,9
+LMESH,all
+
+allsel,all
+
+/ESHAPE,1
+/REPLO
+GPLOT
+
